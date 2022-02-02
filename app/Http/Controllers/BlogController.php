@@ -13,7 +13,7 @@ class BlogController extends BaseController
     public function index(){
 
             $blog = Blog::all();
-            return $this->sendResponse( BlogSource::colletcion($blog), 'Posztok betöltve' );
+            return $this->sendResponse( BlogResource::collection($blog), 'Posztok betöltve' );
 
         } 
         public function store(Request $request){
@@ -44,7 +44,7 @@ class BlogController extends BaseController
 
     }
 
-    public function update(Rquest $request, Blog $blog){
+    public function update(Request $request, Blog $blog){
 
         $input = $request->all();
         $validator = validator::make($input,[
@@ -65,10 +65,15 @@ class BlogController extends BaseController
 }
 
 
- public function destroy(Blog $blog){
-    $blog-> delete();
+ public function destroy($id){
 
-    return $this->sendResponse( [],'ELPUSZTÍTVA!!!' );
+    Blog::destroy($id);
+
+    return $this->sendResponse( [], "Poszt törölve");
+
+    // $blog-> delete();
+
+    // return $this->sendResponse( [],'ELPUSZTÍTVA!!!' );
 
  }
 
